@@ -8,6 +8,7 @@ This code aims to meet the following requirements:
 •	Process documentation should be submitted as well.
 
 # Design diagram
+<img src="images/diagram.png" width="600">
 
 
 # Thought process
