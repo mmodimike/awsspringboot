@@ -19,11 +19,12 @@ This code aims to meet the following requirements:
   - Add route table
   - associate our route table with our subnet
 - Instead of creating new network access control list, use the defult NACL which is already configured to allow all traffic in/out
-
+- Create a new A record attaching elastic IP to domain 
 
 *Creating dependancy infra using amazon console*
 - 
 - Create a public S3 bucket which will contain the .jar file being downloaded upon bootstrap
+- Create a domain name
 
 
 *Creating the needed application*
