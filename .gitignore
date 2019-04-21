@@ -7,3 +7,4 @@
 /Infrastructure/.terraform/plugins/windows_amd64/terraform-provider-aws_v1.58.0_x4.exe
 /Infrastructure/terraform.tfstate
 /Infrastructure/terraform.tfstate.backup
+/Infrastructure/.terraform.tfstate.lock.info
