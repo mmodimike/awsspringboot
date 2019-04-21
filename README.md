@@ -7,8 +7,10 @@ This code aims to meet the following requirements:
 •	The app should be accessible from a specific IP only
 •	Process documentation should be submitted as well.
 
+# Design diagram
 
-# Thought process & High level design
+
+# Thought process
 *Creating the needed infra using terraform*
 - 
 - Create VPC to host our resources, and create subnet within VPC.
