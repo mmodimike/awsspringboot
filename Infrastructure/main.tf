@@ -8,30 +8,30 @@ resource "aws_vpc" "main_vpc" {
   enable_dns_support = true
 
   tags = {
-    Name = "main"
+    Name = "Main Vpc"
   }
 }
 
-resource "aws_subnet" "public_subnet" {
+resource "aws_subnet" "private_subnet" {
   vpc_id = "${aws_vpc.main_vpc.id}"
   cidr_block = "10.0.0.0/24"
   availability_zone = "eu-west-1a"
 
   tags = {
-    Name = "PublicSubnet"
+    Name = "Private Subnet"
   }
 }
 
-resource "aws_security_group" "public_security_group" {
-  name = "allow_all"
-  description = "Allow all inbound traffic"
+resource "aws_security_group" "private_security_group" {
+  name = "Bllow All Except Whitelist"
+  description = "Block all inbound traffic except whitelisted Ips"
   vpc_id = "${aws_vpc.main_vpc.id}"
 
   ingress {
     from_port   = 0
     to_port     = 65535
     protocol    = "tcp"
-    cidr_blocks = ["5.22.134.100/32"] //change this ip to allow access
+    cidr_blocks = ["5.22.134.100/32"] //change this value to whitelist ip
   }
 
   egress {
@@ -42,16 +42,16 @@ resource "aws_security_group" "public_security_group" {
   }
 
   tags = {
-    Name = "Allow All"
+    Name = "Bllow All Except Whitelist"
   }
 }
 
-resource "aws_instance" "web" {
+resource "aws_instance" "aws_instance_web_server" {
   ami = "ami-08d658f84a6d84a80"
   instance_type = "t2.micro"
   key_name = "SuperKey"
-  subnet_id = "${aws_subnet.public_subnet.id}"
-  vpc_security_group_ids = ["${aws_security_group.public_security_group.id}"]
+  subnet_id = "${aws_subnet.private_subnet.id}"
+  vpc_security_group_ids = ["${aws_security_group.private_security_group.id}"]
   user_data = <<-EOF
                  #!/bin/bash
                  sudo su
@@ -63,12 +63,12 @@ resource "aws_instance" "web" {
                  EOF
 
   tags = {
-    Name = "Spring Boot App"
+    Name = "Spring Boot Web Application Server"
   }
 }
 
 resource "aws_eip" "elastic_ip_main_vpc" {
-  instance = "${aws_instance.web.id}"
+  instance = "${aws_instance.aws_instance_web_server.id}"
   vpc = true
 }
 
@@ -94,7 +94,7 @@ resource "aws_route_table" "main_route_table" {
 }
 
 resource "aws_route_table_association" "subnet_association" {
-  subnet_id      = "${aws_subnet.public_subnet.id}"
+  subnet_id      = "${aws_subnet.private_subnet.id}"
   route_table_id = "${aws_route_table.main_route_table.id}"
 }
 
