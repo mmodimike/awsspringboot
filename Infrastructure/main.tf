@@ -42,7 +42,7 @@ resource "aws_security_group" "private_security_group" {
   }
 
   tags = {
-    Name = "Bllow All Except Whitelist"
+    Name = "Block All Except Whitelist"
   }
 }
 
