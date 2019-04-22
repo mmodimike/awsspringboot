@@ -46,5 +46,12 @@ This code aims to meet the following requirements:
 - run the application
 
 
+# Next Steps
+To expand on the current functionality & to enhance security, my next steps would be:
+- Use an ELB instead of Elastic IP
+- Create a private S3 endpoint for VPC
+- Use Terraform Modules,output files, variable files & add code comments
+
+
 
 
