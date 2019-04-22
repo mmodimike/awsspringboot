@@ -23,7 +23,7 @@ resource "aws_subnet" "private_subnet" {
 }
 
 resource "aws_security_group" "private_security_group" {
-  name = "Bllow All Except Whitelist"
+  name = "Block All Except Whitelist"
   description = "Block all inbound traffic except whitelisted Ips"
   vpc_id = "${aws_vpc.main_vpc.id}"
 
